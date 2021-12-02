@@ -1,0 +1,15 @@
+import { list } from "./input"
+
+let mut increases = 0
+let rec checkIncreases = (list) => {
+  match (list) {
+    [a, b, ...rest] => {
+      if (b > a) { increases += 1 }
+      checkIncreases([b, ...rest])
+    },
+    _ => void
+  }
+}
+checkIncreases(list)
+
+print(increases)
