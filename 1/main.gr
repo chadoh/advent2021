@@ -1,15 +1,15 @@
 import { list } from "./input"
+import List from "list"
 
 let mut increases = 0
-let rec checkIncreases = (list) => {
-  match (list) {
-    [a, b, ...rest] => {
-      if (b > a) { increases += 1 }
-      checkIncreases([b, ...rest])
-    },
-    _ => void
+let checkIncreases = (curr, index) => {
+  match (List.nth(index - 1, list)) {
+    None => void,
+    Some(prev) => {
+      if (curr > prev) { increases += 1 }
+    }
   }
 }
-checkIncreases(list)
+List.forEachi(checkIncreases, list)
 
 print(increases)
