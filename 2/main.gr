@@ -1,0 +1,17 @@
+import { list } from "../1/input"
+import Array from "array"
+
+let increases = Array.mapi(
+  (_, index) => {
+    if (index > 0 && index + 2 < Array.length(list)) {
+      let prev = list[index - 1] + list[index] + list[index + 1]
+      let curr = list[index] + list[index + 1] + list[index + 2]
+      if (curr > prev) { 1 }
+      else { 0 }
+    }
+    else { 0 }
+  },
+  list
+)
+
+print(Array.reduce((+), 0, increases))
