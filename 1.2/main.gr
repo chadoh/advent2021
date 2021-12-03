@@ -1,4 +1,4 @@
-import { list } from "../1/input"
+import { list } from "../1.1/input"
 import Array from "array"
 
 let increases = Array.mapi(
