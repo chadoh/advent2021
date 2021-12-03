@@ -1,12 +1,12 @@
 import { list } from "./input"
 import Array from "array"
 
-let mut increases = 0
-let checkIncreases = (curr, index) => {
-  if (index > 0 && curr > list[index - 1]) {
-    increases +=1
-  }
-}
-Array.forEachi(checkIncreases, list)
+let increases = Array.mapi(
+  (curr, index) => {
+    if (index > 0 && curr > list[index - 1]) { 1 }
+    else { 0 }
+  },
+  list
+)
 
-print(increases)
+print(Array.reduce((+), 0, increases))
