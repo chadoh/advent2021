@@ -8,7 +8,7 @@ const move = {
 }
 
 require('fs').readFileSync(
-  require('path').join(__dirname, '../2.1/input.txt'),
+  require('path').join(__dirname, 'input.txt'),
   'utf8'
 ).split('\n').forEach(line => {
   let [dir, dist] = line.split(' ')

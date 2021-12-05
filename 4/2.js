@@ -1,6 +1,6 @@
 
 const input = require('fs').readFileSync(
-  require('path').join(__dirname, '../4.1/input.txt'),
+  require('path').join(__dirname, 'input.txt'),
   'utf8'
 ).split('\n')
 
