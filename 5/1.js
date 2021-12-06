@@ -1,5 +1,5 @@
 const fs = require('fs')
-const INFILE = require('path').join(__dirname, 'example-input.txt')
+const INFILE = require('path').join(__dirname, 'input.txt')
 
 const input = fs.readFileSync(INFILE, 'utf8').split('\n')
 
@@ -19,6 +19,8 @@ const coordsWithMoreThanOneVent = [
 let largestX = 0
 let largestY = 0
 
+const numericSort = (a, b) => a - b
+
 const vents = input.map(line => {
   const [[x1, y1], [x2, y2]] = line.match(/\d+,\d+/g).map(
     s => s.split(',').map(Number)
@@ -30,8 +32,8 @@ const vents = input.map(line => {
   if (y2 > largestY) largestY = y2
 
   if (x1 === x2 || y1 === y2) {
-    const exes = [x1, x2].sort()
-    const whys = [y1, y2].sort()
+    const exes = [x1, x2].sort(numericSort)
+    const whys = [y1, y2].sort(numericSort)
     for (let x = exes[0]; x <= exes[1]; x++) {
       for (let y = whys[0]; y <= whys[1]; y++) {
         const coord = `${x},${y}`
