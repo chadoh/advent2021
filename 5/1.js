@@ -1,8 +1,7 @@
+const fs = require('fs')
+const INFILE = require('path').join(__dirname, 'example-input.txt')
 
-const input = require('fs').readFileSync(
-  require('path').join(__dirname, 'example-input.txt'),
-  'utf8'
-).split('\n')
+const input = fs.readFileSync(INFILE, 'utf8').split('\n')
 
 const ventsAtCoordinate = {
   // '3,9': 1,
@@ -47,7 +46,12 @@ const vents = input.map(line => {
   return [[x1, y1], [x2, y2]]
 })
 
-// TODO: make SVG of vents
+fs.writeFileSync(INFILE.replace('.txt', '.svg'), `<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="${largestX + 1}" height="${largestY + 1}" viewBox="0 0 ${largestX + 1} ${largestY + 1}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">${vents.map(([[x1, y1], [x2, y2]]) =>
+  `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgba(0,0,100,0.4)" stroke-width="1"/>`
+).join('')
+  }</svg>`)
+
 
 console.log({
   coordsWithMoreThanOneVent,
