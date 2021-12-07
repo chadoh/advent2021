@@ -40,10 +40,10 @@ let mode = Object.entries(frequencies)
 if (mode.length === 1) mode = mode[0]
 
 console.log({
-  // crabs,
+  smallest: crabs[0],
+  largest: crabs[crabs.length - 1],
   mean: crabs.reduce((a, b) => a + b) / crabs.length,
   median,
-  // frequencies,
   biggestCluster,
   mode,
   leastGas,
