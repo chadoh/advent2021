@@ -11,11 +11,7 @@ let leastGasPosition = null
 for (let position = crabs[0]; position < crabs[crabs.length - 1]; position++) {
   const gasToPosition = crabs.map(crab => {
     const steps = Math.abs(position - crab)
-    let gas = 0
-    for (let i = 1; i <= steps; i++) {
-      gas += i
-    }
-    return gas
+    return (steps * (steps + 1)) / 2
   }).reduce((a, b) => a + b)
   if (gasToPosition < leastGas) {
     leastGas = gasToPosition
