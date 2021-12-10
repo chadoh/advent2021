@@ -35,74 +35,50 @@ const coordToBasin = {
 function recordPoint({ x, y, basin }) {
   const coord = `${x},${y}`
   if (coordToBasin.hasOwnProperty(coord)) return
-
-  coordToBasin[coord] = basin
-  basinSizes[basin]++
-  checkAbove({ x, y, basin })
-  checkBelow({ x, y, basin })
-  checkLeft({ x, y, basin })
-  checkRight({ x, y, basin })
+  if (rows[y][x] === 9) {
+    coordToBasin[coord] = null
+  } else {
+    coordToBasin[coord] = basin
+    basinSizes[basin] = basinSizes[basin] || 0
+    basinSizes[basin]++
+    checkAbove({ x, y, basin })
+    checkBelow({ x, y, basin })
+    checkLeft({ x, y, basin })
+    checkRight({ x, y, basin })
+  }
 }
 
 function checkAbove({ x, y, basin }) {
   if (y > 1) {
     const y2 = y - 1
-    const point = rows[y2][x]
-    if (point === 9) {
-      coordToBasin[`${x},${y2}`] = null
-    } else {
-      recordPoint({ x, y: y2, basin })
-    }
+    recordPoint({ x, y: y2, basin })
   }
 }
 function checkBelow({ x, y, basin }) {
   if (y < rows.length - 1) {
     const y2 = y + 1
-    const point = rows[y2][x]
-    if (point === 9) {
-      coordToBasin[`${x},${y2}`] = null
-    } else {
-      recordPoint({ x, y: y2, basin })
-    }
+    recordPoint({ x, y: y2, basin })
   }
 }
 
 function checkLeft({ x, y, basin }) {
   if (x > 0) {
     const x2 = x - 1
-    const point = rows[y][x2]
-    if (point === 9) {
-      coordToBasin[`${x2},${y}`] = null
-    } else {
-      recordPoint({ x: x2, y, basin })
-    }
+    recordPoint({ x: x2, y, basin })
   }
 }
 
 function checkRight({ x, y, basin }) {
   if (x < rows[0].length - 1) {
     const x2 = x + 1
-    const point = rows[y][x2]
-    if (point === 9) {
-      coordToBasin[`${x2},${y}`] = null
-    } else {
-      recordPoint({ x: x2, y, basin })
-    }
+    recordPoint({ x: x2, y, basin })
   }
 }
 
 rows.forEach((row, y) => {
   row.forEach((point, x) => {
-    const coord = `${x},${y}`
-
-    if (coordToBasin.hasOwnProperty(coord)) return
-
-    if (point === 9) {
-      coordToBasin[coord] = null
-    } else {
-      const basin = basinSizes.length
-      basinSizes.push(0)
-      recordPoint({ x, y, basin })
+    if (!coordToBasin.hasOwnProperty(`${x},${y}`)) {
+      recordPoint({ x, y, basin: basinSizes.length })
     }
   })
 })
